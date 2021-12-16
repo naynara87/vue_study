@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <button>버튼</button>
+    <h1>abcd</h1>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+var h1태그 = document.querySelector('h1');
+var 원래글씨 = document.querySelector('h1').innerHTML;
+
+$('button').click(function(){
+   애니메이션(h1태그, 원래글씨)
+});
+
+function 애니메이션(h1태그, 원래글씨){
+  h1태그.innerHTML = '';
+  for (let i = 0; i < 원래글씨.length; i++){
+    setTimeout(function(){ 
+      h1태그.innerHTML = h1태그.innerHTML + 원래글씨[i]
+    }, i * 500);
+  }
+}
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <section>
+        <h1>다음 내용</h1>
+    </section>
+    <div class="card-background">
+        <div class="card-box">
+            <img src="./card1.png">
+        </div>
+        <div class="card-box">
+            <img src="./card2.png">
+        </div>
+        <div class="card-box">
+            <img src="./card3.png">
+        </div>
+    </div>
+    <section>
+        <h1>다음 내용</h1>
+    </section>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(window).scroll(function(){
+            var 높이 = $(window).scrollTop();
+            // console.log(높이);
+            var 카드박스 = $('.card-box');
+            // 650~1150까지 스크롤바를 내리면,
+            var y =  -1/500 * 높이 + 115/50;
+            var z = (-1/5000) * 높이 + 565/500;
+
+            
+            카드박스.eq(0).css('opacity', y);
+            카드박스.eq(0).css('transform', `scale( ${z} )`);
+            // 카드박스.eq(1).css('opacity', y);
+            // 카드박스.eq(1).css('transform', `scale( ${z} )`);
+            // 카드박스.eq(2).css('opacity', y);
+            // 카드박스.eq(2).css('transform', `scale( ${z} )`);
+
+
+            // for (let i; i < 카드박스.length; i++) {
+            //     카드박스.eq(i).css('opacity', y);
+            //     카드박스.eq(i).css('transform', `scale( ${z} )`);
+            // }
+
+        });
+    </script>
+</body>
+</html>

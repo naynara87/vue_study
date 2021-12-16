@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+    <!-- jQuery 스크립트 -->
+    <title>Document</title>
+</head>
+<body>
+    <div class="card-group container"></div>
+    <div class="container my-4">
+        <button class="btn btn-danger" id="sortPrice">가격순정렬</button>
+        <button class="btn btn-primary" id="abc">가나다순</button>
+        <button class="btn btn-primary" id="filter">5만원이하 보기</button>
+    </div>
+      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    var products = [
+        { id : 0, price : 60000, title : 'Blossom Dress' },
+        { id : 1, price : 50000, title : 'Springfield Shirt' },
+        { id : 2, price : 70000, title : 'Black Monastery' },
+        { id : 3, price : 40000, title : 'Abc 스타킹' },
+        { id : 4, price : 80000, title : '나이키' }
+    ]
+    var products2 = [...products];
+
+    products.forEach(i => {
+        var cardTemplate = `<div class="card">`+
+                                `<img src="https://via.placeholder.com/600">`+
+                                `<div class="card-body">`+
+                                    `<h5 class="title">`+ i.title +`</h5>`+
+                                    `<p class="price">가격 :`+ i.price +`</p>`+
+                                    `<button class="btn btn-danger">주문하기</button>`+
+                                `</div>`+
+                            `</div>`;
+        $('.card-group').append(cardTemplate);
+    })
+    
+    var 어레이 = [7,3,6,2,40];
+
+    어레이.sort(function(a,b){
+        // return a - b  //오름차순 정렬코드
+        return b - a  //내림차순 정렬코드
+    });
+
+    var 뉴어레이 = 어레이.filter(function(a){
+        return a < 4
+    })
+
+    var 뉴어레이 = 어레이.map(function(a){
+        return a * 2
+    })
+
+
+
+
+
+//가격순 정렬
+    $('#sortPrice').click(function(){
+        products.sort(function(a,b){
+            return a.price - b.price //오름차순 정렬
+        });
+        $('.card-group').html('');
+        products.forEach(i => {
+            var cardTemplate = `<div class="card">`+
+                                    `<img src="https://via.placeholder.com/600">`+
+                                    `<div class="card-body">`+
+                                        `<h5 class="title">`+ i.title +`</h5>`+
+                                        `<p class="price">가격 :`+ i.price +`</p>`+
+                                        `<button class="btn btn-danger">주문하기</button>`+
+                                    `</div>`+
+                                `</div>`;
+            $('.card-group').append(cardTemplate);
+        })
+    })
+
+
+
+//가나다순 정렬
+    $('#abc').click(function(){
+        products.sort(function(a,b){
+            if (a.title < b.title == true ) {
+                return -1
+            } else {
+                return 1
+            }
+        })
+        $('.card-group').html('');
+        products.forEach(i => {
+            var cardTemplate = `<div class="card">`+
+                                    `<img src="https://via.placeholder.com/600">`+
+                                    `<div class="card-body">`+
+                                        `<h5 class="title">`+ i.title +`</h5>`+
+                                        `<p class="price">가격 :`+ i.price +`</p>`+
+                                        `<button class="btn btn-danger">주문하기</button>`+
+                                    `</div>`+
+                                `</div>`;
+            $('.card-group').append(cardTemplate);
+        })
+    }); 
+
+
+
+//5만원이상 필터
+    $('#filter').click(function(){
+        var 새상품 = products.filter(function(a){
+        return a.price <= 50000
+        });
+        console.log(새상품);
+
+        $('.card-group').html('');
+        새상품.forEach(i => {
+            var cardTemplate = `<div class="card">`+
+                                    `<img src="https://via.placeholder.com/600">`+
+                                    `<div class="card-body">`+
+                                        `<h5 class="title">`+ i.title +`</h5>`+
+                                        `<p class="price">가격 :`+ i.price +`</p>`+
+                                        `<button class="btn btn-danger">주문하기</button>`+
+                                    `</div>`+
+                                `</div>`;
+            $('.card-group').append(cardTemplate);
+        })
+    }); 
+
+    </script>
+    <script>
+
+    var 출석부 = ['흥민', '영희', '철수', '재석'];
+
+    function 이름찾기(name){
+    // 여기에 어떤 코드가 들어가야할까요?
+        출석부.forEach(i => {
+            if(name == i){
+                console.log('있어요.')
+            }
+        });
+    }
+
+    function 구구단(){
+        for (var z = 2; z < 10; z++) {
+            for (var i = 1; i < 10; i++) {
+                console.log( z + 'X' + i + '=' + z * i)
+            }
+        }
+
+    }
+    function 목표량계산기(판매실적어레이, 평균월별판매량){
+        var 실적5개월 = 0;
+        array.forEach(i => {
+            실적5개월 = 실적5개월 + i;
+        })
+
+        var 실적12월 = 평균월별판매량 * 6 - 실적5개월;
+        console.log(실적12월)
+        
+    }
+    </script>
+</body>
+</html>

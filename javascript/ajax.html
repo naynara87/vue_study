@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .slide-container{
+            width: 300vw;
+            display: flex;
+            height: auto;
+        }
+        
+        .slide-box{
+            width: 100%;
+        }
+        .slide-box img{
+            width: 100%;
+        }
+        .transforming {
+            transition : transform 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <h4 id="hello">임시글씨</h4>
+        <!-- <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">제품명</h5>
+                <p class="card-brand">브랜드:</p>
+                <p class="card-text">가격 : </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <button class="btn btn-primary my-5">상품보여주기</button> -->
+        <div style="overflow: hidden; position: relative">
+            <div class="slide-container">
+              <div class="slide-box">
+                <img src="card1.png">
+              </div>
+              <div class="slide-box">
+                <img src="card2.png">
+              </div>
+              <div class="slide-box">
+                <img src="card3.png">
+              </div>
+            </div>
+        </div> 
+   
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha256-eVNjHw5UeU0jUqPPpZHAkU1z4U+QFBBY488WvueTm88=" crossorigin="anonymous"></script>
+    
+    
+    <script>
+    // $('.btn-primary').click(function(){
+    //     $.ajax({ 
+    //         url : 'https://codingapple1.github.io/data.json',
+    //         type : 'GET'
+    //     }).done(function(데이터){
+    //         console.log(데이터);
+    //         $('.card-title').html(데이터.model);
+    //         $('.card-brand').html('가격 : ' + 데이터.brand);
+    //         $('.card-text').html('가격 : ' + 데이터.price);
+    //         $('.card-img-top').attr('src', 데이터.img);
+    //     }).fail(function(){
+    //         //ajax 실패시 실행할 코드
+    //     }).always(function(){
+    //         //ajax 요청시 항상 실행할 코드
+    //     })
+    // })
+
+
+    //hammer.js 드래그
+    var 이미지1 = document.querySelectorAll('.slide-box img')[0];
+    
+    var 매니저 = new Hammer.Manager(이미지1);
+    매니저.add(new Hammer.Pan({ threshold: 0 }));
+    
+    매니저.on('pan', function(e){
+        //console.log(e.deltaX);
+        if ( e.deltaX < -1 ){
+            $('.slide-container').css('transform', 'translateX('+ e.deltaX +'px)');
+            
+            //만약에 이사람이 마우스를 놓으면 ... 
+            if (e.isFinal){
+            //두번째 사진으로 쇽 변해야함 
+            $('.slide-container').addClass('transforming');
+            $('.slide-container').css('transform', 'translateX(-100vw)');
+            setTimeout(function(){
+                $('.slide-container').removeClass('transforming');
+            }, 500)
+            }
+        }
+    })
+
+    </script>
+</body>
+</html>
