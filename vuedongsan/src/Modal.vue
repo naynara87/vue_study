@@ -29,12 +29,23 @@ export default {
       date: 123
     };
   },
+  mounted(){
+    setInterval(()=>{
+      this.showDiscount = false;
+    },1000)
+  },
+  beforeUpdate(){
+    if (this.month == 2){
+      alert('2개월은 너무 적음.. 안팝니다');
+      this.month = 3;
+    }
+ },
   watch : {
     month(a){
       // 사용자가 month를 글자로 입력하면 경고문 띄우기
       if (isNaN(a) == true){
         alert('숫자만 입력 가능합니다.');
-        this.month = 1;
+        this.month = 3;
       }
     },
     date(){

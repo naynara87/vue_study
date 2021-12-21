@@ -8,12 +8,14 @@
   <div class="menu">
     <a v-for="a in 메뉴들" :key="a" href="#">{{ a }}</a>
   </div>
-  <Discount v-bind="오브젝트" />
+  <Discount v-bind="오브젝트" v-if="showDiscount == true"/>
 
+<div class="btn-group" style="margin-top:35px">
   <button @click="priceLowSort">가격 낮은순</button>
   <button @click="priceHightSort">가격 높은순</button>
   <button @click="nameSort">상품명 정렬</button>
   <button @click="sortBack">되돌리기</button>
+</div>
 
   <Product
     @openModal="
@@ -32,10 +34,13 @@ import Discount from "./Discount.vue";
 import Modal from "./Modal.vue";
 import Product from "./Product.vue";
 
+
+
 export default {
   name: "App",
   data() {
     return {
+      showDiscount: true,
       원룸들원본: [...data],
       오브젝트: { name: "kim", age: "20" },
       누른거: 0,
@@ -44,6 +49,7 @@ export default {
       신고수: [0, 0, 0, 0, 0, 0],
       메뉴들: ["Home", "Shop", "About"],
       products: ["역삼동원룸", "천호동원룸", "마포구원룸"],
+      
     };
   },
   methods: {
@@ -73,6 +79,15 @@ export default {
       this.원룸들 = [...this.원룸들원본];
     },
   },
+  created(){
+
+  },
+  mounted(){
+    setTimeout(()=>{
+    this.showDiscount = false;
+    },10000)
+  }
+  ,
   components: {
     Discount: Discount,
     Modal: Modal,
@@ -123,7 +138,7 @@ div {
   margin: 0 auto;
   background: #fff;
   box-shadow: 5px 10px 18px #ddd;
-  padding: 10px 15px;
+  /* padding: 10px 15px; */
 }
 .menu {
   background: darkslateblue;
