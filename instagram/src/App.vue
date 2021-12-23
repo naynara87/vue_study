@@ -1,50 +1,114 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li v-if="step == 1">Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish()">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
+  <p>{{name}}</p>
+  <!-- <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더보기버튼</button> -->
 
-  <Container :포스트글="포스트글"/>
-  <button @click="more">더보기</button>
+  <Container :이미지="이미지" :포스트글="포스트글" :step="step" 더보기="더보기" @write="작성한글 = $event"/>
+
+
+  <button style="width:100%; padding:10px" v-if="step == 0" @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
-      <label for="file" class="input-plus">+</label>
+      <input @change="upload" type="file" id="file" class="inputfile" accept="image/*" multiple/>
+      <label v-if="step == 0" for="file" class="input-plus">+</label>
     </ul>
   </div>
+
+  <!-- <div v-if="step == 0">내용0</div>
+  <div v-if="step == 1">내용1</div>
+  <div v-if="step == 2">내용2</div>
+  <button @click="step = 0">버튼0</button>
+  <button @click="step = 1">버튼1</button>
+  <button @click="step = 2">버튼2</button>
+  <div style="margin-top: 500px;"></div> -->
+
 </template>
 
 <script>
-import Container from "./components/Container.vue";
-import postdata from "./assets/data.js";
-import axios from "axios";
-axios.post();
+import Container from "./components/Container.vue"
+import postdata from "./assets/data.js"
+import axios from "axios"
+// import {mapState} from "vuexs"
+// axios.post();
 
 export default {
   name: "App",
   data(){
     return{
-      포스트글: postdata,
+      포스트글 : postdata,
       더보기 : 0,
+      step : 0,
+      이미지 : '',
+      작성한글 : '',
+      작성날짜:'',
+      선택한필터 : '',
+      카운터 : 0,
     }
+  },
+  mounted(){
+    this.emitter.on('박스클릭함', (a)=>{
+      this.선택한필터 = a
+    });
   },
   components: {
     Container,
   },
+  // computed:{
+  //   name(){
+  //     return this.$store.state.name
+  //   },
+  //   ...mapState(['name','age','likes']),
+  //   ...mapState({이름: 'name'}),
+  // },
   methods:{
+    // ...mapMutations(['setMore', '좋아요']),
+    now(){
+      return new Date()
+    },
+    publish(){
+      var 내게시물 = {
+        name: "Admin_test",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage:  this.이미지,
+        likes: 0,
+        date:'May 15',
+        liked: false,
+        content: this.작성한글,
+        filter: this.선택한필터
+      };
+      this.포스트글.unshift(내게시물);
+      this.step = 0;
+      
+      // 날짜구하기
+      // let today = new Date();   
+      // let hours = today.getMonth();
+      // let minutes = today.getDay();
+    },
     more(){
       axios.get(`https://codingapple1.github.io/vue/more${this.더보기}.json`)
       .then( 결과 => {
         this.포스트글.push(결과.data);
         this.더보기++;
       })
-    } 
+    },
+    upload(e){
+      let 파일 = e.target.files;
+      let url = URL.createObjectURL(파일[0]);
+      console.log(url);
+      this.이미지 = url
+      this.step++;
+    }
   }
 };
 </script>

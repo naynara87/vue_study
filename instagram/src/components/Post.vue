@@ -4,9 +4,9 @@
         <div class="profile" :style="{backgroundImage: `url(${포스트글.userImage})`}"></div>
         <span class="profile-name">{{포스트글.name}}</span>
       </div>
-      <div class="post-body" :style="{backgroundImage: `url(${포스트글.postImage})`}"></div>
+      <div :class="포스트글.filter"  class="post-body" :style="{backgroundImage: `url(${포스트글.postImage})`}"></div>
       <div class="post-content">
-        <p>{{포스트글.likes}} Likes</p>
+        <p><span @click="$store.commit('좋아요')" class="heart">♥</span> {{ $store.state.likes }} Likes</p>
         <p><strong>{{포스트글.name}}</strong> {{포스트글.content}}</p>
         <p class="date">{{포스트글.date}}</p>
       </div>
@@ -25,6 +25,12 @@ export default {
 </script>
 
 <style>
+.heart{
+  color: red;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 5px;
+}
 .post {
   width: 100%;
 }
