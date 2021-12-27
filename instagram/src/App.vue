@@ -48,7 +48,7 @@ export default {
     return{
       포스트글 : postdata,
       더보기 : 0,
-      step : 0,
+      step : 3,
       이미지 : '',
       작성한글 : '',
       작성날짜:'',
